@@ -1,0 +1,5 @@
+{
+  "name": "NASCareCard",
+  "description": "An interactive digital flip card with customizable message and download functionality.",
+  "requestFramePermissions": []
+}
