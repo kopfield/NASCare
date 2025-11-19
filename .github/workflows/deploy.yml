@@ -28,11 +28,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload artifact for GitHub Pages
-        # Use v2 which avoids the deprecated upload-artifact v3 dependency
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to `gh-pages` branch using peaceiris
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # use the GITHUB_TOKEN provided to the runner
+          github_token: ${{ secrets.GITHUB_TOKEN }}
