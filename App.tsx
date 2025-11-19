@@ -3,7 +3,7 @@ import { FlipCard } from './components/FlipCard';
 import { RotateCw, Mail, Download } from 'lucide-react';
 
 export default function App() {
-  const [message, setMessage] = useState("Dear [Name],\n\nYou are amazing! Thank you for all the hard work!\n\nWarm regards,\n[Your Name]");
+  const [message, setMessage] = useState("Dear [Name],\n\nYou are amazing! Thank you for all the hard work!");
   const [isFlipped, setIsFlipped] = useState(false);
   
   // State for custom images - using provided GitHub URLs
