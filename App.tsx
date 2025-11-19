@@ -21,6 +21,16 @@ export default function App() {
   }, []);
 
   const handleDownloadHtml = () => {
+    // helper to escape HTML in message
+    const escapeHtml = (unsafe: string) => {
+      return unsafe
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    };
+
     // Generate a standalone HTML file string
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -64,11 +74,11 @@ export default function App() {
           <img src="${backImage}" class="w-full h-full object-cover object-center" alt="Background">
         </div>
         <div class="relative z-10 w-full h-full p-8 md:p-12 flex flex-col items-center justify-start pt-8 md:pt-12">
-          <div class="w-full h-3/5 relative">
-             <textarea readonly class="w-full h-full bg-white/80 backdrop-blur-[2px] rounded-xl p-6 resize-none 
-                       border-none outline-none text-center text-slate-800 text-lg md:text-2xl font-['Indie_Flower'] 
-                       leading-relaxed shadow-sm pointer-events-none">${message}</textarea>
-          </div>
+           <div id="messageWrap" class="w-full relative h-3/5">
+             <div id="messageArea" class="w-full h-full bg-white/80 backdrop-blur-[2px] rounded-xl p-6 
+                    border-none outline-none text-center text-slate-800 text-base md:text-lg font-['Indie_Flower'] 
+                    leading-relaxed shadow-sm pointer-events-none" style="white-space:pre-wrap;">${'${escapedMessage}'}</div>
+           </div>
         </div>
       </div>
 
@@ -81,11 +91,26 @@ export default function App() {
     function toggleFlip() {
       card.classList.toggle('is-flipped');
     }
+
+    // Ensure exported preview matches the original: keep font-size/style and alignment.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (card && !card.classList.contains('is-flipped')) card.classList.add('is-flipped');
+      // Wait for fonts to load, then do a small layout pass to ensure spacing matches
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          // nothing extra needed; classes and fonts should match the app
+        });
+      }
+    });
+    
   </script>
 </body>
 </html>`;
 
-    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const escapedMessage = escapeHtml(message);
+    const finalHtml = htmlContent.replace('${escapedMessage}', escapedMessage);
+
+    const blob = new Blob([finalHtml], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
