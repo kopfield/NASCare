@@ -57,7 +57,7 @@ export default function App() {
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       NASCare Card
     </h1>
-    <p class="text-slate-600 mt-2">Tap the card to flip! <a href="https://kopfield.github.io/NASCare> Create one </a></p>
+    <p class="text-slate-600 mt-2">Tap the card to flip! <a href="https://kopfield.github.io/NASCare"> Create one </a></p>
   </div>
 
   <div class="relative group perspective-1000 w-full max-w-[700px] aspect-[4/3] cursor-pointer" onclick="toggleFlip()">
